@@ -1,63 +1,81 @@
 const noButton = document.getElementById("noButton");
 
 const phrases = [
-    "💔 Ты мне не интересен",
-    "😝 Не получится",
-    "🙃 Мимо",
-    "😏 Хорошая попытка",
-    "😂 Хаха",
-    "🤨 Серьезно?",
-    "🥺 Может не надо?",
-    "🏃 Попробуй поймай",
-    "😎 Даже не думай",
-    "👀 Я слежу за тобой"
+
+"💔 Ты мне не интересен",
+
+"😝 Не получится",
+
+"😂 Хорошая попытка",
+
+"🙃 Мимо",
+
+"🏃 Попробуй поймай",
+
+"😎 Даже не думай",
+
+"🥺 Может не надо?",
+
+"👀 Я слежу за тобой"
+
 ];
 
 let tries = 0;
-let detached = false;
+
+let activated = false;
 
 function moveButton(){
 
     tries++;
 
-    if(tries===5)
+    if(tries==5)
         alert("😅 Уже 5 попыток...");
 
-    if(tries===10)
+    if(tries==10)
         alert("😂 Ты очень настойчивая.");
 
-    if(tries===20)
-        alert("🏆 Достижение разблокировано!");
+    if(tries==20)
+        alert("🏆 Достижение получено!");
 
-    noButton.textContent =
-        phrases[Math.floor(Math.random()*phrases.length)];
+    noButton.textContent=phrases[Math.floor(Math.random()*phrases.length)];
 
-    if(!detached){
+    if(!activated){
 
-        const rect = noButton.getBoundingClientRect();
+        const rect=noButton.getBoundingClientRect();
 
         noButton.style.position="fixed";
+
         noButton.style.left=rect.left+"px";
+
         noButton.style.top=rect.top+"px";
 
-        detached=true;
+        activated=true;
     }
 
-    const safeTop = 260;
-    const safeBottom = window.innerHeight-80;
+    const safeTop=window.innerHeight*0.55;
 
-    const x = Math.random()*(window.innerWidth-noButton.offsetWidth-20);
+    const maxX=window.innerWidth-noButton.offsetWidth-20;
 
-    const y = safeTop + Math.random()*(safeBottom-safeTop);
+    const maxY=window.innerHeight-noButton.offsetHeight-20;
+
+    const x=Math.random()*maxX;
+
+    const y=safeTop+Math.random()*(maxY-safeTop);
 
     noButton.style.left=x+"px";
+
     noButton.style.top=y+"px";
 
-    noButton.style.transform=`rotate(${Math.random()*16-8}deg)`;
+    noButton.style.transform=`rotate(${Math.random()*20-10}deg)`;
+
 }
 
 noButton.addEventListener("mouseenter",moveButton);
+
 noButton.addEventListener("touchstart",(e)=>{
+
     e.preventDefault();
+
     moveButton();
+
 });
