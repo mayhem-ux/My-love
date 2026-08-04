@@ -14,34 +14,50 @@ const phrases = [
 ];
 
 let tries = 0;
+let detached = false;
 
-function moveButton() {
+function moveButton(){
 
     tries++;
 
-    if (tries === 5)
+    if(tries===5)
         alert("😅 Уже 5 попыток...");
 
-    if (tries === 10)
+    if(tries===10)
         alert("😂 Ты очень настойчивая.");
 
-    if (tries === 20)
-        alert("🏆 Достижение получено!");
+    if(tries===20)
+        alert("🏆 Достижение разблокировано!");
 
     noButton.textContent =
-        phrases[Math.floor(Math.random() * phrases.length)];
+        phrases[Math.floor(Math.random()*phrases.length)];
 
-    const maxX = window.innerWidth - noButton.offsetWidth - 20;
-    const maxY = window.innerHeight - noButton.offsetHeight - 20;
+    if(!detached){
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+        const rect = noButton.getBoundingClientRect();
 
-    noButton.style.left = x + "px";
-    noButton.style.top = y + "px";
+        noButton.style.position="fixed";
+        noButton.style.left=rect.left+"px";
+        noButton.style.top=rect.top+"px";
 
-    noButton.style.transform =
-        `rotate(${Math.random() * 20 - 10}deg)`;
+        detached=true;
+    }
+
+    const safeTop = 260;
+    const safeBottom = window.innerHeight-80;
+
+    const x = Math.random()*(window.innerWidth-noButton.offsetWidth-20);
+
+    const y = safeTop + Math.random()*(safeBottom-safeTop);
+
+    noButton.style.left=x+"px";
+    noButton.style.top=y+"px";
+
+    noButton.style.transform=`rotate(${Math.random()*16-8}deg)`;
 }
 
-noButton.addEventListener("mouseover", moveButton);
+noButton.addEventListener("mouseenter",moveButton);
+noButton.addEventListener("touchstart",(e)=>{
+    e.preventDefault();
+    moveButton();
+});
