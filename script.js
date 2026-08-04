@@ -1,33 +1,62 @@
 const noButton = document.getElementById("noButton");
+let tries = 0;
+const phrases = [
+    "💔 Ты мне не интересен",
+    "😝 Не получится",
+    "🙃 Мимо",
+    "😏 Хорошая попытка",
+    "😂 Хаха",
+    "🤨 Серьезно?",
+    "🥺 Может не надо?",
+    "🏃 Попробуй поймай",
+    "😎 Даже не думай",
+    "👀 Я слежу за тобой"
+];
 
-document.addEventListener("mousemove", (event)=>{
+let firstMove = false;
 
-    const rect = noButton.getBoundingClientRect();
+function moveButton(){
 
-    const buttonCenterX = rect.left + rect.width / 2;
-    const buttonCenterY = rect.top + rect.height / 2;
+    const width = noButton.offsetWidth;
+    const height = noButton.offsetHeight;
 
-    const distance = Math.hypot(
-        event.clientX - buttonCenterX,
-        event.clientY - buttonCenterY
-    );
+    const x = Math.random() * (window.innerWidth - width - 20);
 
-    if(distance < 150){
+    const y = Math.random() * (window.innerHeight - height - 20);
 
-        const maxX = window.innerWidth - rect.width;
-        const maxY = window.innerHeight - rect.height;
+    noButton.style.left = x + "px";
+    noButton.style.top = y + "px";
+noButton.textContent =
+    phrases[Math.floor(Math.random() * phrases.length)];
+}
 
-        const randomX = Math.random() * maxX;
-        const randomY = Math.random() * maxY;
+noButton.addEventListener("mouseenter",()=>{
 
-        noButton.style.left = randomX + "px";
-        noButton.style.top = randomY + "px";
+    if(!firstMove){
+
+        noButton.style.position="fixed";
+
+        firstMove=true;
     }
 
-});
+    moveButton();
+tries++;
 
-document.getElementById("yesButton").addEventListener("click", ()=>{
+if(tries === 5){
 
-    alert("❤️ Продолжение следует...");
+    alert("😅 Уже 5 попыток... Может нажмешь на зеленую?");
 
+}
+
+if(tries === 10){
+
+    alert("😂 Ты очень настойчивая.");
+
+}
+
+if(tries === 20){
+
+    alert("🏆 Поздравляю! Ты открыла достижение: 'Охотник за красными кнопками'");
+
+}
 });
