@@ -118,15 +118,16 @@ let complimentIndex = 0;
 
 yesButton.onclick=()=>{
 
-    chapter1.style.opacity="0";
-
-    chapter1.style.transform="scale(.95)";
+    chapter1.classList.add("fade-out");
 
     setTimeout(()=>{
 
         chapter1.classList.add("hidden");
 
         chapter2.classList.remove("hidden");
+
+        chapter2.classList.add("fade-in");
+        
 
     },600);
 
@@ -150,8 +151,17 @@ nextCompliment.onclick=()=>{
 
     if(complimentIndex===compliments.length){
 
-        nextCompliment.textContent="❤️ Продолжить";
+    nextCompliment.textContent="💚 Продолжить";
 
-    }
+    nextCompliment.style.background="#6fd36f";
 
+    nextCompliment.style.color="white";
+
+}
+if(complimentIndex >= compliments.length){
+
+    // здесь потом будет переход к третьей главе
+    return;
+
+}
 };
