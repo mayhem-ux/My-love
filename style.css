@@ -96,3 +96,69 @@ button{
 
     background:#ff6b81;
 }
+.hidden{
+
+    display:none;
+}
+
+#complimentsContainer{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:30px;
+
+    margin-bottom:30px;
+
+    min-height:220px;
+
+}
+
+.compliment{
+
+    background:#f8c7d6;
+
+    color:#444;
+
+    border-radius:15px;
+
+    padding:15px 20px;
+
+    animation:fade .5s;
+
+    font-size:17px;
+
+}
+
+#nextCompliment{
+
+    background:#ff7fa6;
+
+    color:white;
+
+}
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}

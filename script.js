@@ -1,3 +1,26 @@
+const compliments = [
+
+"🌸 Здесь будет комплимент №1",
+
+"🌸 Здесь будет комплимент №2",
+
+"🌸 Здесь будет комплимент №3",
+
+"🌸 Здесь будет комплимент №4",
+
+"🌸 Здесь будет комплимент №5",
+
+"🌸 Здесь будет комплимент №6",
+
+"🌸 Здесь будет комплимент №7",
+
+"🌸 Здесь будет комплимент №8",
+
+"🌸 Здесь будет комплимент №9",
+
+"🌸 Здесь будет комплимент №10"
+
+];
 const noButton = document.getElementById("noButton");
 
 const phrases = [
@@ -79,3 +102,56 @@ noButton.addEventListener("touchstart",(e)=>{
     moveButton();
 
 });
+const yesButton = document.getElementById("yesButton");
+
+const chapter1 = document.getElementById("chapter1");
+
+const chapter2 = document.getElementById("chapter2");
+
+const complimentsContainer =
+document.getElementById("complimentsContainer");
+
+const nextCompliment =
+document.getElementById("nextCompliment");
+
+let complimentIndex = 0;
+
+yesButton.onclick=()=>{
+
+    chapter1.style.opacity="0";
+
+    chapter1.style.transform="scale(.95)";
+
+    setTimeout(()=>{
+
+        chapter1.classList.add("hidden");
+
+        chapter2.classList.remove("hidden");
+
+    },600);
+
+};
+
+nextCompliment.onclick=()=>{
+
+    if(complimentIndex<compliments.length){
+
+        const div=document.createElement("div");
+
+        div.className="compliment";
+
+        div.textContent=compliments[complimentIndex];
+
+        complimentsContainer.appendChild(div);
+
+        complimentIndex++;
+
+    }
+
+    if(complimentIndex===compliments.length){
+
+        nextCompliment.textContent="❤️ Продолжить";
+
+    }
+
+};
