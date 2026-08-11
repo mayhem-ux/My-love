@@ -18,7 +18,30 @@ const compliments = [
 
 "🌸 И у тебя хороший музыкальный вкус",
 
-"🌸 Ну и конечно-же ты позитивная!"
+"🌸 Ты одна из самых прекрасных людей кого я встречал!"
+
+];
+const myFeatures = [
+
+    "😂 Здесь будет моя особенность №1",
+
+    "🎮 Здесь будет моя особенность №2",
+
+    "😴 Здесь будет моя особенность №3",
+
+    "☕ Здесь будет моя особенность №4",
+
+    "🤦 Здесь будет моя особенность №5",
+
+    "😎 Здесь будет моя особенность №6",
+
+    "🧠 Здесь будет моя особенность №7",
+
+    "❤️ Здесь будет моя особенность №8",
+
+    "🙃 Здесь будет моя особенность №9",
+
+    "💀 Здесь будет моя особенность №10"
 
 ];
 const noButton = document.getElementById("noButton");
@@ -113,6 +136,16 @@ document.getElementById("complimentsContainer");
 
 const nextCompliment =
 document.getElementById("nextCompliment");
+const chapter3 =
+document.getElementById("chapter3");
+
+const myFeaturesContainer =
+document.getElementById("myFeaturesContainer");
+
+const nextFeature =
+document.getElementById("nextFeature");
+
+let featureIndex = 0;
 
 let complimentIndex = 0;
 
@@ -160,8 +193,41 @@ nextCompliment.onclick=()=>{
 }
 if(complimentIndex >= compliments.length){
 
-    // здесь потом будет переход к третьей главе
+    chapter2.classList.add("fade-out");
+
+    setTimeout(() => {
+
+        chapter2.classList.add("hidden");
+
+        chapter3.classList.remove("hidden");
+
+        chapter3.classList.add("fade-in");
+
+    }, 700);
+
     return;
 
 }
+};
+nextFeature.onclick = () => {
+
+    if(featureIndex < myFeatures.length){
+
+        const div = document.createElement("div");
+
+        div.className = "compliment";
+
+        div.textContent = myFeatures[featureIndex];
+
+        myFeaturesContainer.appendChild(div);
+
+        featureIndex++;
+
+        return;
+    }
+
+    nextFeature.textContent = "💚 Продолжить";
+
+    nextFeature.style.background = "#6fd36f";
+
 };
