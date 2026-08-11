@@ -1,26 +1,37 @@
+/* ========================================
+   ДАННЫЕ САЙТА
+======================================== */
+
+
+/* Комплименты для Вики */
+
 const compliments = [
 
-"🌸 Ты очень творческая",
+    "🌸 Ты очень творческая",
 
-"🌸 И очень талантливая",
+    "🌸 И очень талантливая",
 
-"🌸 У тебя красивые голубые глаза",
+    "🌸 У тебя красивые голубые глаза",
 
-"🌸 Ты милая",
+    "🌸 Ты милая",
 
-"🌸 И очень красивая!",
+    "🌸 И очень красивая!",
 
-"🌸 Начитаная!",
+    "🌸 Начитанная!",
 
-"🌸 И умная",
+    "🌸 И умная",
 
-"🌸 У тебя отличное чувство юмора",
+    "🌸 У тебя отличное чувство юмора",
 
-"🌸 И у тебя хороший музыкальный вкус",
+    "🌸 И у тебя хороший музыкальный вкус",
 
-"🌸 Ты одна из самых прекрасных людей кого я встречал!"
+    "🌸 Ты одна из самых прекрасных людей, кого я встречал!"
 
 ];
+
+
+/* Мои особенности */
+
 const myFeatures = [
 
     "😂 Здесь будет моя особенность №1",
@@ -44,158 +55,298 @@ const myFeatures = [
     "💀 Здесь будет моя особенность №10"
 
 ];
-const noButton = document.getElementById("noButton");
+
+
+/* Фразы убегающей кнопки */
 
 const phrases = [
 
-"💔 Ты мне не интересен",
+    "💔 Ты мне не интересен",
 
-"😝 Не получится",
+    "😝 Не получится",
 
-"😂 Хорошая попытка",
+    "😂 Хорошая попытка",
 
-"🙃 Мимо",
+    "🙃 Мимо",
 
-"🏃 Попробуй поймай",
+    "🏃 Попробуй поймай",
 
-"😎 Даже не думай",
+    "😎 Даже не думай",
 
-"🥺 Может не надо?",
+    "🥺 Может не надо?",
 
-"👀 Я слежу за тобой"
+    "👀 Я слежу за тобой"
 
 ];
+
+
+
+/* ========================================
+   ЭЛЕМЕНТЫ СТРАНИЦЫ
+======================================== */
+
+
+const noButton =
+    document.getElementById("noButton");
+
+const yesButton =
+    document.getElementById("yesButton");
+
+const chapter1 =
+    document.getElementById("chapter1");
+
+const chapter2 =
+    document.getElementById("chapter2");
+
+const chapter3 =
+    document.getElementById("chapter3");
+
+const complimentsContainer =
+    document.getElementById("complimentsContainer");
+
+const nextCompliment =
+    document.getElementById("nextCompliment");
+
+const myFeaturesContainer =
+    document.getElementById("myFeaturesContainer");
+
+const nextFeature =
+    document.getElementById("nextFeature");
+
+
+
+/* ========================================
+   ПЕРЕМЕННЫЕ
+======================================== */
+
 
 let tries = 0;
 
 let activated = false;
 
+let complimentIndex = 0;
+
+let featureIndex = 0;
+
+
+
+/* ========================================
+   КРАСНАЯ УБЕГАЮЩАЯ КНОПКА
+======================================== */
+
+
 function moveButton(){
 
     tries++;
 
-    if(tries==5)
+
+    if(tries === 5){
+
         alert("😅 Уже 5 попыток...");
 
-    if(tries==10)
+    }
+
+
+    if(tries === 10){
+
         alert("😂 Ты очень настойчивая.");
 
-    if(tries==20)
+    }
+
+
+    if(tries === 20){
+
         alert("🏆 Достижение получено!");
 
-    noButton.textContent=phrases[Math.floor(Math.random()*phrases.length)];
+    }
+
+
+    noButton.textContent =
+        phrases[
+            Math.floor(
+                Math.random() * phrases.length
+            )
+        ];
+
 
     if(!activated){
 
-        const rect=noButton.getBoundingClientRect();
+        const rect =
+            noButton.getBoundingClientRect();
 
-        noButton.style.position="fixed";
+        noButton.style.position = "fixed";
 
-        noButton.style.left=rect.left+"px";
+        noButton.style.left =
+            rect.left + "px";
 
-        noButton.style.top=rect.top+"px";
+        noButton.style.top =
+            rect.top + "px";
 
-        activated=true;
+        activated = true;
+
     }
 
-    const safeTop=window.innerHeight*0.55;
 
-    const maxX=window.innerWidth-noButton.offsetWidth-20;
+    const safeTop =
+        window.innerHeight * 0.55;
 
-    const maxY=window.innerHeight-noButton.offsetHeight-20;
+    const maxX =
+        window.innerWidth -
+        noButton.offsetWidth -
+        20;
 
-    const x=Math.random()*maxX;
+    const maxY =
+        window.innerHeight -
+        noButton.offsetHeight -
+        20;
 
-    const y=safeTop+Math.random()*(maxY-safeTop);
 
-    noButton.style.left=x+"px";
+    const x =
+        Math.random() * Math.max(maxX, 20);
 
-    noButton.style.top=y+"px";
 
-    noButton.style.transform=`rotate(${Math.random()*20-10}deg)`;
+    const y =
+        safeTop +
+        Math.random() *
+        Math.max(
+            maxY - safeTop,
+            20
+        );
+
+
+    noButton.style.left =
+        x + "px";
+
+    noButton.style.top =
+        y + "px";
+
+
+    noButton.style.transform =
+        `rotate(${Math.random() * 20 - 10}deg)`;
 
 }
 
-noButton.addEventListener("mouseenter",moveButton);
 
-noButton.addEventListener("touchstart",(e)=>{
+noButton.addEventListener(
+    "mouseenter",
+    moveButton
+);
 
-    e.preventDefault();
 
-    moveButton();
+noButton.addEventListener(
+    "touchstart",
+    function(event){
 
-});
-const yesButton = document.getElementById("yesButton");
+        event.preventDefault();
 
-const chapter1 = document.getElementById("chapter1");
+        moveButton();
 
-const chapter2 = document.getElementById("chapter2");
+    }
+);
 
-const complimentsContainer =
-document.getElementById("complimentsContainer");
 
-const nextCompliment =
-document.getElementById("nextCompliment");
-const chapter3 =
-document.getElementById("chapter3");
 
-const myFeaturesContainer =
-document.getElementById("myFeaturesContainer");
+/* ========================================
+   ПЕРЕХОД С ГЛАВЫ 1 НА ГЛАВУ 2
+======================================== */
 
-const nextFeature =
-document.getElementById("nextFeature");
 
-let featureIndex = 0;
-
-let complimentIndex = 0;
-
-yesButton.onclick=()=>{
+yesButton.onclick = function(){
 
     chapter1.classList.add("fade-out");
 
-    setTimeout(()=>{
+
+    setTimeout(function(){
 
         chapter1.classList.add("hidden");
 
         chapter2.classList.remove("hidden");
 
         chapter2.classList.add("fade-in");
-        
 
-    },600);
+    },800);
 
 };
 
-nextCompliment.onclick=()=>{
 
-    if(complimentIndex<compliments.length){
 
-        const div=document.createElement("div");
+/* ========================================
+   ГЛАВА 2
+   КОМПЛИМЕНТЫ
+======================================== */
 
-        div.className="compliment";
 
-        div.textContent=compliments[complimentIndex];
+nextCompliment.onclick = function(){
 
-        complimentsContainer.appendChild(div);
+    /*
+       Если комплименты закончились,
+       значит сейчас можно переходить
+       к следующей главе.
+    */
 
-        complimentIndex++;
+    if(complimentIndex >= compliments.length){
+
+        goToChapter3();
+
+        return;
 
     }
 
-    if(complimentIndex===compliments.length){
 
-    nextCompliment.textContent="💚 Продолжить";
+    /*
+       Создаем новую карточку
+    */
 
-    nextCompliment.style.background="#6fd36f";
+    const div =
+        document.createElement("div");
 
-    nextCompliment.style.color="white";
 
-}
-if(complimentIndex >= compliments.length){
+    div.className =
+        "compliment";
+
+
+    div.textContent =
+        compliments[complimentIndex];
+
+
+    complimentsContainer.appendChild(div);
+
+
+    complimentIndex++;
+
+
+    /*
+       После 10-го комплимента
+       кнопка становится зеленой.
+    */
+
+    if(complimentIndex === compliments.length){
+
+        nextCompliment.textContent =
+            "💚 Продолжить";
+
+
+        nextCompliment.classList.add(
+            "continue-button"
+        );
+
+    }
+
+};
+
+
+
+/* ========================================
+   ПЕРЕХОД НА ГЛАВУ 3
+======================================== */
+
+
+function goToChapter3(){
 
     chapter2.classList.add("fade-out");
 
-    setTimeout(() => {
+
+    setTimeout(function(){
 
         chapter2.classList.add("hidden");
 
@@ -203,31 +354,71 @@ if(complimentIndex >= compliments.length){
 
         chapter3.classList.add("fade-in");
 
-    }, 700);
-
-    return;
+    },800);
 
 }
-};
-nextFeature.onclick = () => {
 
-    if(featureIndex < myFeatures.length){
 
-        const div = document.createElement("div");
 
-        div.className = "compliment";
+/* ========================================
+   ГЛАВА 3
+   МОИ ОСОБЕННОСТИ
+======================================== */
 
-        div.textContent = myFeatures[featureIndex];
 
-        myFeaturesContainer.appendChild(div);
+nextFeature.onclick = function(){
 
-        featureIndex++;
+    /*
+       Если все особенности уже показаны,
+       пока просто ничего не делаем.
+       Позже сюда добавим переход
+       на 4 главу.
+    */
+
+    if(featureIndex >= myFeatures.length){
 
         return;
+
     }
 
-    nextFeature.textContent = "💚 Продолжить";
 
-    nextFeature.style.background = "#6fd36f";
+    /*
+       Создаем карточку
+    */
+
+    const div =
+        document.createElement("div");
+
+
+    div.className =
+        "compliment";
+
+
+    div.textContent =
+        myFeatures[featureIndex];
+
+
+    myFeaturesContainer.appendChild(div);
+
+
+    featureIndex++;
+
+
+    /*
+       После 10-й особенности
+       кнопка становится зеленой.
+    */
+
+    if(featureIndex === myFeatures.length){
+
+        nextFeature.textContent =
+            "💚 Продолжить";
+
+
+        nextFeature.classList.add(
+            "continue-button"
+        );
+
+    }
 
 };

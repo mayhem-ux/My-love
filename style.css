@@ -4,26 +4,36 @@
     box-sizing:border-box;
 }
 
+
 body{
 
     background:#ffeef5;
 
-    height:100vh;
+    min-height:100vh;
 
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
     font-family:Arial, Helvetica, sans-serif;
 
     overflow:hidden;
+
+    padding:20px;
 }
+
 
 .container{
 
     width:700px;
 
-    max-width:90%;
+    max-width:100%;
+
+    max-height:90vh;
+
+    overflow:auto;
 
     background:white;
 
@@ -36,14 +46,21 @@ body{
     text-align:center;
 
     position:relative;
+
+    transition:
+        opacity .8s,
+        transform .8s;
 }
+
 
 h1{
 
     color:#ff5b96;
 
     margin-bottom:20px;
+
 }
+
 
 .description{
 
@@ -52,7 +69,9 @@ h1{
     line-height:1.6;
 
     margin-bottom:40px;
+
 }
+
 
 .buttons{
 
@@ -61,13 +80,17 @@ h1{
     justify-content:center;
 
     gap:20px;
+
 }
+
 
 button{
 
     width:220px;
 
-    height:60px;
+    min-height:60px;
+
+    padding:10px;
 
     border:none;
 
@@ -80,28 +103,44 @@ button{
     cursor:pointer;
 
     transition:.2s;
+
 }
+
 
 #yesButton{
 
     background:#6fd36f;
+
 }
+
 
 #yesButton:hover{
 
     transform:scale(1.05);
+
 }
+
 
 #noButton{
 
     background:#ff6b81;
+
 }
+
+
+/* Скрытие глав */
+
 .hidden{
 
     display:none;
+
 }
 
-#complimentsContainer{
+
+/* Комплименты и особенности */
+
+#complimentsContainer,
+#myFeaturesContainer{
 
     display:flex;
 
@@ -119,6 +158,7 @@ button{
 
 }
 
+
 .compliment{
 
     background:#f8c7d6;
@@ -129,45 +169,39 @@ button{
 
     padding:15px 20px;
 
-    animation:fade .5s;
-
     font-size:17px;
 
+    animation:pop .35s;
+
 }
+
+
+/* Кнопки глав */
 
 #nextCompliment{
 
     background:#ff7fa6;
 
-    color:white;
+}
+
+
+#nextFeature{
+
+    background:#ff7fa6;
 
 }
 
-@keyframes fade{
 
-    from{
+/* Зеленая кнопка после завершения */
 
-        opacity:0;
+.continue-button{
 
-        transform:translateY(20px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-}
-.container{
-
-    transition:
-        opacity .8s,
-        transform .8s;
+    background:#6fd36f !important;
 
 }
+
+
+/* Переходы */
 
 .fade-out{
 
@@ -177,11 +211,13 @@ button{
 
 }
 
+
 .fade-in{
 
     animation:fadeIn .8s;
 
 }
+
 
 @keyframes fadeIn{
 
@@ -202,6 +238,8 @@ button{
     }
 
 }
+
+
 @keyframes pop{
 
     0%{
@@ -227,7 +265,67 @@ button{
     }
 
 }
-.compliment{
 
-    animation:pop .35s;
+
+/* Телефон / планшет */
+
+@media (max-width:600px){
+
+    body{
+
+        padding:12px;
+
+        overflow:auto;
+
+    }
+
+
+    .container{
+
+        padding:30px 20px;
+
+        max-height:94vh;
+
+    }
+
+
+    h1{
+
+        font-size:26px;
+
+    }
+
+
+    .description{
+
+        font-size:16px;
+
+    }
+
+
+    .buttons{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+
+    button{
+
+        width:100%;
+
+        max-width:300px;
+
+    }
+
+
+    #complimentsContainer,
+    #myFeaturesContainer{
+
+        min-height:180px;
+
+    }
+
 }
