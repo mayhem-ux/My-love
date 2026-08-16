@@ -17,258 +17,290 @@
 <body>
 
 
-    <!-- =========================================
-         ГЛАВА 1
-    ========================================== -->
+<!-- ==================================================
+     ГЛАВА 1
+================================================== -->
 
-    <div class="container" id="chapter1">
+<div class="container" id="chapter1">
 
-        <h1>Привет, Вика ❤️</h1>
+    <h1>Привет, Вика ❤️</h1>
 
-        <p class="description">
+    <p class="description">
 
-            Если ты сейчас это читаешь, значит я наконец-то решился сделать
-            кое-что необычное. Надеюсь, эта маленькая страничка сможет вызвать
-            у тебя хотя бы улыбку :)
+        Если ты сейчас это читаешь, значит я наконец-то решился сделать
+        кое-что необычное. Надеюсь, эта маленькая страничка сможет вызвать
+        у тебя хотя бы улыбку :)
 
-        </p>
+    </p>
 
-        <div class="buttons">
+    <div class="buttons">
 
-            <button id="yesButton">
-                💚 Ты мне интересен
-            </button>
+        <button id="yesButton">
+            💚 Ты мне интересен
+        </button>
 
-            <button id="noButton">
-                💔 Ты мне не интересен
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================================
-         ГЛАВА 2
-    ========================================== -->
-
-    <div class="container hidden" id="chapter2">
-
-        <h1>❤️</h1>
-
-        <p class="description">
-
-            Спасибо, что нажала именно эту кнопку.
-
-            <br><br>
-
-            Мне хотелось сделать что-то чуть интереснее обычного скучного
-            сообщения, поэтому я решил собрать для тебя этот небольшой
-            творческий сайт.
-
-            <br><br>
-
-            Я не знаю, что ты почувствуешь, пока будешь его смотреть,
-            но надеюсь, что он хотя бы немного поднимет тебе настроение.
-
-            <br><br>
-
-            За это время я успел кое-что заметить...
-
-            <br><br>
-
-            <b>Вот что я успел узнать о тебе за эти дни:</b>
-
-        </p>
-
-        <div id="complimentsContainer"></div>
-
-        <button id="nextCompliment">
-            🌸 Узнать
+        <button id="noButton">
+            💔 Ты мне не интересен
         </button>
 
     </div>
 
+</div>
 
-    <!-- =========================================
-         ГЛАВА 3
-         ФОТОГРАФИИ + МУЗЫКА
-    ========================================== -->
 
-    <div id="chapter3" class="photo-chapter hidden">
+<!-- ==================================================
+     ГЛАВА 2
+================================================== -->
 
-        <div class="photo-instruction">
+<div class="container hidden" id="chapter2">
 
-            нажимай на фотографии...
+    <h1>❤️</h1>
 
-        </div>
+    <p class="description">
 
+        Спасибо, что нажала именно эту кнопку.
 
-        <div class="photo-wall" id="photoWall">
+        <br><br>
 
+        Мне хотелось сделать что-то чуть интереснее обычного скучного
+        сообщения, поэтому я решил собрать для тебя этот небольшой
+        творческий сайт.
 
-            <!-- НИТИ -->
+        <br><br>
 
-            <svg
-                class="threads"
-                id="threads"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none">
+        Я не знаю, что ты почувствуешь, пока будешь его смотреть,
+        но надеюсь, что он хотя бы немного поднимет тебе настроение.
 
-            </svg>
+        <br><br>
 
+        За это время я успел кое-что заметить...
 
-            <!-- ФОТО 1 -->
+        <br><br>
 
-            <div
-                class="polaroid photo-1 active-photo"
-                data-photo="1">
+        <b>Вот что я успел узнать о тебе за эти дни:</b>
 
-                <div class="photo-image">
+    </p>
 
-                    <img
-                        src="images/photo1.jpg"
-                        alt="Фото 1">
+    <div id="complimentsContainer"></div>
 
-                </div>
+    <button id="nextCompliment">
+        🌸 Узнать
+    </button>
 
-                <div class="photo-caption">
-                    ❤️
-                </div>
+</div>
 
-            </div>
 
+<!-- ==================================================
+     ГЛАВА 3
+     СТЕНА ФОТОГРАФИЙ
+================================================== -->
 
-            <!-- ФОТО 2 -->
+<div id="chapter3" class="photo-chapter hidden">
 
-            <div
-                class="polaroid photo-2"
-                data-photo="2">
 
-                <div class="photo-image">
+    <!-- Маленькая надпись сверху -->
 
-                    <img
-                        src="images/photo2.jpg"
-                        alt="Фото 2">
+    <div class="photo-instruction">
 
-                </div>
-
-                <div class="photo-caption">
-                    🌸
-                </div>
-
-            </div>
-
-
-            <!-- ФОТО 3 -->
-
-            <div
-                class="polaroid photo-3"
-                data-photo="3">
-
-                <div class="photo-image">
-
-                    <img
-                        src="images/photo3.jpg"
-                        alt="Фото 3">
-
-                </div>
-
-                <div class="photo-caption">
-                    ✨
-                </div>
-
-            </div>
-
-
-            <!-- ФОТО 4 -->
-
-            <div
-                class="polaroid photo-4"
-                data-photo="4">
-
-                <div class="photo-image">
-
-                    <img
-                        src="images/photo4.jpg"
-                        alt="Фото 4">
-
-                </div>
-
-                <div class="photo-caption">
-                    💕
-                </div>
-
-            </div>
-
-
-            <!-- ФОТО 5 -->
-
-            <div
-                class="polaroid photo-5"
-                data-photo="5">
-
-                <div class="photo-image">
-
-                    <img
-                        src="images/photo5.jpg"
-                        alt="Фото 5">
-
-                </div>
-
-                <div class="photo-caption">
-                    🌷
-                </div>
-
-            </div>
-
-
-            <!-- ФОТО 6 -->
-
-            <div
-                class="polaroid photo-6"
-                data-photo="6">
-
-                <div class="photo-image">
-
-                    <img
-                        src="images/photo6.jpg"
-                        alt="Фото 6">
-
-                </div>
-
-                <div class="photo-caption">
-                    ❤️
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- АУДИО -->
-
-        <audio
-            id="musicPlayer"
-            preload="auto">
-        </audio>
-
-
-        <!-- КНОПКА ПОСЛЕ ВСЕХ ФОТО -->
-
-        <button
-            id="continueAfterPhotos"
-            class="photo-continue">
-
-            💚 Продолжить
-
-        </button>
+        нажимай на фотографии...
 
     </div>
 
 
-    <script src="script.js"></script>
+    <!-- Небольшой декоративный текст -->
+
+    <div class="photo-subtitle">
+
+        некоторые моменты хочется сохранить
+
+    </div>
+
+
+    <!-- ==================================================
+         СТЕНА
+    ================================================== -->
+
+    <div class="photo-wall" id="photoWall">
+
+
+        <!-- НИТИ -->
+
+        <svg
+            class="threads"
+            id="threads"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none">
+        </svg>
+
+
+        <!-- ==================================================
+             ФОТО 1
+        ================================================== -->
+
+        <div
+            class="polaroid photo-1 active-photo"
+            data-photo="1">
+
+            <div class="photo-image">
+
+                <img
+                    src="images/photo1.jpg"
+                    alt="Фото 1">
+
+            </div>
+
+            <div class="photo-caption">
+                ❤️
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             ФОТО 2
+        ================================================== -->
+
+        <div
+            class="polaroid photo-2"
+            data-photo="2">
+
+            <div class="photo-image">
+
+                <img
+                    src="images/photo2.jpg"
+                    alt="Фото 2">
+
+            </div>
+
+            <div class="photo-caption">
+                🌸
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             ФОТО 3
+        ================================================== -->
+
+        <div
+            class="polaroid photo-3"
+            data-photo="3">
+
+            <div class="photo-image">
+
+                <img
+                    src="images/photo3.jpg"
+                    alt="Фото 3">
+
+            </div>
+
+            <div class="photo-caption">
+                ✨
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             ФОТО 4
+        ================================================== -->
+
+        <div
+            class="polaroid photo-4"
+            data-photo="4">
+
+            <div class="photo-image">
+
+                <img
+                    src="images/photo4.jpg"
+                    alt="Фото 4">
+
+            </div>
+
+            <div class="photo-caption">
+                💕
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             ФОТО 5
+        ================================================== -->
+
+        <div
+            class="polaroid photo-5"
+            data-photo="5">
+
+            <div class="photo-image">
+
+                <img
+                    src="images/photo5.jpg"
+                    alt="Фото 5">
+
+            </div>
+
+            <div class="photo-caption">
+                🌷
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             ФОТО 6
+        ================================================== -->
+
+        <div
+            class="polaroid photo-6"
+            data-photo="6">
+
+            <div class="photo-image">
+
+                <img
+                    src="images/photo6.jpg"
+                    alt="Фото 6">
+
+            </div>
+
+            <div class="photo-caption">
+                ❤️
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ==================================================
+         АУДИО
+    ================================================== -->
+
+    <audio
+        id="musicPlayer"
+        preload="auto">
+    </audio>
+
+
+    <!-- ==================================================
+         КНОПКА ПОСЛЕ ФОТО
+    ================================================== -->
+
+    <button
+        id="continueAfterPhotos"
+        class="photo-continue">
+
+        💚 Продолжить
+
+    </button>
+
+
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
 

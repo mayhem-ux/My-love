@@ -1,9 +1,11 @@
-/* ========================================
+/* ==================================================
    ДАННЫЕ САЙТА
-======================================== */
+================================================== */
 
 
-/* Комплименты */
+/* ==================================================
+   КОМПЛИМЕНТЫ
+================================================== */
 
 const compliments = [
 
@@ -30,7 +32,9 @@ const compliments = [
 ];
 
 
-/* Фразы красной кнопки */
+/* ==================================================
+   ФРАЗЫ КРАСНОЙ КНОПКИ
+================================================== */
 
 const phrases = [
 
@@ -53,49 +57,95 @@ const phrases = [
 ];
 
 
-/* ========================================
-   ЭЛЕМЕНТЫ
-======================================== */
+/* ==================================================
+   МУЗЫКА
+================================================== */
 
+/*
+   Здесь находятся песни.
+
+   song1.mp3 = музыка при открытии фото 2
+   song2.mp3 = музыка при открытии фото 3
+   song3.mp3 = музыка при открытии фото 4
+   song4.mp3 = музыка при открытии фото 5
+   song5.mp3 = музыка при открытии фото 6
+
+   song6.mp3 пока оставляем на случай,
+   если потом захочешь использовать ее.
+*/
+
+const songs = [
+
+    "music/song1.mp3",
+
+    "music/song2.mp3",
+
+    "music/song3.mp3",
+
+    "music/song4.mp3",
+
+    "music/song5.mp3",
+
+    "music/song6.mp3"
+
+];
+
+
+/* ==================================================
+   ЭЛЕМЕНТЫ
+================================================== */
 
 const noButton =
     document.getElementById("noButton");
 
+
 const yesButton =
     document.getElementById("yesButton");
+
 
 const chapter1 =
     document.getElementById("chapter1");
 
+
 const chapter2 =
     document.getElementById("chapter2");
+
 
 const chapter3 =
     document.getElementById("chapter3");
 
+
 const complimentsContainer =
     document.getElementById("complimentsContainer");
+
 
 const nextCompliment =
     document.getElementById("nextCompliment");
 
+
 const photoWall =
     document.getElementById("photoWall");
+
 
 const threads =
     document.getElementById("threads");
 
+
 const musicPlayer =
     document.getElementById("musicPlayer");
+
 
 const continueAfterPhotos =
     document.getElementById("continueAfterPhotos");
 
 
-/* ========================================
-   ПЕРЕМЕННЫЕ
-======================================== */
+const photos =
+    document.querySelectorAll(".polaroid");
 
+
+/* ==================================================
+   ПЕРЕМЕННЫЕ
+================================================== */
 
 let tries = 0;
 
@@ -106,31 +156,30 @@ let complimentIndex = 0;
 let currentPhoto = 1;
 
 
-/* ========================================
+/* ==================================================
    КРАСНАЯ КНОПКА
-======================================== */
+================================================== */
 
-
-function moveButton(){
+function moveButton() {
 
     tries++;
 
 
-    if(tries === 5){
+    if (tries === 5) {
 
         alert("Уже 5 попыток...");
 
     }
 
 
-    if(tries === 10){
+    if (tries === 10) {
 
         alert("Ну-ну, пытайся дальше.");
 
     }
 
 
-    if(tries === 20){
+    if (tries === 20) {
 
         alert("🏆 Достижение получено!");
 
@@ -140,25 +189,28 @@ function moveButton(){
     noButton.textContent =
         phrases[
             Math.floor(
-                Math.random() *
-                phrases.length
+                Math.random() * phrases.length
             )
         ];
 
 
-    if(!activated){
+    if (!activated) {
 
         const rect =
             noButton.getBoundingClientRect();
 
+
         noButton.style.position =
             "fixed";
+
 
         noButton.style.left =
             rect.left + "px";
 
+
         noButton.style.top =
             rect.top + "px";
+
 
         activated = true;
 
@@ -166,7 +218,7 @@ function moveButton(){
 
 
     const safeTop =
-        window.innerHeight * .55;
+        window.innerHeight * 0.55;
 
 
     const maxX =
@@ -183,7 +235,7 @@ function moveButton(){
 
     const x =
         Math.random() *
-        Math.max(maxX,20);
+        Math.max(maxX, 20);
 
 
     const y =
@@ -204,7 +256,7 @@ function moveButton(){
 
 
     noButton.style.transform =
-        `rotate(${Math.random()*20-10}deg)`;
+        `rotate(${Math.random() * 20 - 10}deg)`;
 
 }
 
@@ -217,7 +269,7 @@ noButton.addEventListener(
 
 noButton.addEventListener(
     "touchstart",
-    function(event){
+    function(event) {
 
         event.preventDefault();
 
@@ -227,48 +279,45 @@ noButton.addEventListener(
 );
 
 
-/* ========================================
+/* ==================================================
    ГЛАВА 1 → ГЛАВА 2
-======================================== */
+================================================== */
+
+yesButton.onclick = function() {
+
+    chapter1.classList.add("fade-out");
 
 
-yesButton.onclick = function(){
+    setTimeout(function() {
 
-    chapter1.classList.add(
-        "fade-out"
-    );
+        chapter1.classList.add("hidden");
 
+        chapter2.classList.remove("hidden");
 
-    setTimeout(function(){
+        chapter2.classList.add("fade-in");
 
-        chapter1.classList.add(
-            "hidden"
-        );
-
-        chapter2.classList.remove(
-            "hidden"
-        );
-
-        chapter2.classList.add(
-            "fade-in"
-        );
-
-    },800);
+    }, 800);
 
 };
 
 
-/* ========================================
+/* ==================================================
    ГЛАВА 2
-======================================== */
+================================================== */
+
+nextCompliment.onclick = function() {
 
 
-nextCompliment.onclick = function(){
+    /*
+       Если все 10 комплиментов
+       уже показаны - переходим
+       только по повторному нажатию.
+    */
 
-    if(
+    if (
         complimentIndex >=
         compliments.length
-    ){
+    ) {
 
         goToChapter3();
 
@@ -299,13 +348,19 @@ nextCompliment.onclick = function(){
     complimentIndex++;
 
 
-    if(
+    /*
+       После последнего комплимента
+       кнопка становится зеленой.
+    */
+
+    if (
         complimentIndex ===
         compliments.length
-    ){
+    ) {
 
         nextCompliment.textContent =
             "💚 Продолжить";
+
 
         nextCompliment.classList.add(
             "continue-button"
@@ -316,19 +371,18 @@ nextCompliment.onclick = function(){
 };
 
 
-/* ========================================
+/* ==================================================
    ГЛАВА 2 → ГЛАВА 3
-======================================== */
+================================================== */
 
-
-function goToChapter3(){
+function goToChapter3() {
 
     chapter2.classList.add(
         "fade-out"
     );
 
 
-    setTimeout(function(){
+    setTimeout(function() {
 
         chapter2.classList.add(
             "hidden"
@@ -347,101 +401,68 @@ function goToChapter3(){
 
         startPhotoChapter();
 
-
-    },800);
+    }, 800);
 
 }
 
 
-/* ========================================
+/* ==================================================
    ГЛАВА 3
-   ФОТОГРАФИИ
-======================================== */
+================================================== */
 
 
 /*
-    Здесь указываем музыку для каждой
-    фотографии.
+   Начальное состояние.
 
-    После загрузки своих MP3 просто
-    поменяй названия файлов.
+   Видна только первая фотография.
 */
 
-
-const songs = [
-
-    "music/song1.mp3",
-
-    "music/song2.mp3",
-
-    "music/song3.mp3",
-
-    "music/song4.mp3",
-
-    "music/song5.mp3",
-
-    "music/song6.mp3"
-
-];
-
-
-/*
-    Все фотографии
-*/
-
-const photos =
-    document.querySelectorAll(
-        ".polaroid"
-    );
-
-
-/* ========================================
-   ЗАПУСК ФОТОГЛАВЫ
-======================================== */
-
-
-function startPhotoChapter(){
+function startPhotoChapter() {
 
     currentPhoto = 1;
 
-    showPhoto(1);
 
-}
+    photos.forEach(
+        function(photo) {
+
+            photo.classList.remove(
+                "active-photo"
+            );
+
+        }
+    );
 
 
-/* ========================================
-   ПОКАЗАТЬ ФОТО
-======================================== */
-
-
-function showPhoto(number){
-
-    const photo =
+    const firstPhoto =
         document.querySelector(
-            `.photo-${number}`
+            ".photo-1"
         );
 
 
-    if(!photo){
+    if (firstPhoto) {
 
-        return;
+        firstPhoto.classList.add(
+            "active-photo"
+        );
 
     }
 
 
-    photo.classList.add(
-        "active-photo"
+    threads.innerHTML = "";
+
+
+    continueAfterPhotos.classList.remove(
+        "visible"
     );
 
 }
 
 
-/* ========================================
-   ПОЛУЧИТЬ ЦЕНТР ФОТО
-======================================== */
+/* ==================================================
+   ЦЕНТР ФОТОГРАФИИ
+================================================== */
 
-
-function getPhotoCenter(photo){
+function getPhotoCenter(photo) {
 
     const wallRect =
         photoWall.getBoundingClientRect();
@@ -461,7 +482,9 @@ function getPhotoCenter(photo){
             )
             /
             wallRect.width
-            * 100,
+            *
+            100,
+
 
         y:
             (
@@ -471,22 +494,22 @@ function getPhotoCenter(photo){
             )
             /
             wallRect.height
-            * 100
+            *
+            100
 
     };
 
 }
 
 
-/* ========================================
-   СОЗДАТЬ НИТЬ
-======================================== */
-
+/* ==================================================
+   СОЗДАНИЕ НИТИ
+================================================== */
 
 function createThread(
     firstPhoto,
     secondPhoto
-){
+) {
 
     const start =
         getPhotoCenter(
@@ -543,18 +566,17 @@ function createThread(
 }
 
 
-/* ========================================
-   ЗАПУСТИТЬ МУЗЫКУ
-======================================== */
+/* ==================================================
+   МУЗЫКА
+================================================== */
 
-
-function playSong(number){
+function playSong(number) {
 
     const song =
         songs[number - 1];
 
 
-    if(!song){
+    if (!song) {
 
         return;
 
@@ -567,162 +589,190 @@ function playSong(number){
 
     musicPlayer.src = song;
 
-
     musicPlayer.volume = 0.18;
 
 
     musicPlayer.play()
-        .catch(function(){
+        .catch(
+            function(error) {
 
-            console.log(
-                "Браузер не разрешил воспроизведение."
-            );
+                console.log(
+                    "Музыка не запустилась:",
+                    error
+                );
 
-        });
+            }
+        );
 
 }
 
 
-/* ========================================
-   НАЖАТИЕ НА ФОТО
-======================================== */
+/* ==================================================
+   НАЖАТИЕ НА ФОТОГРАФИЮ
+================================================== */
+
+photos.forEach(
+    function(photo) {
+
+        photo.addEventListener(
+            "click",
+            function() {
 
 
-photos.forEach(function(photo){
-
-    photo.addEventListener(
-        "click",
-        function(){
-
-            const number =
-                Number(
-                    photo.dataset.photo
-                );
+                const number =
+                    Number(
+                        photo.dataset.photo
+                    );
 
 
-            /*
-                Нельзя нажать на фотографию,
-                которая еще не открыта.
-            */
+                /*
+                   Нельзя нажать
+                   на еще не открытую
+                   фотографию.
+                */
 
-            if(
-                number !== currentPhoto
-            ){
+                if (
+                    number !==
+                    currentPhoto
+                ) {
 
-                return;
+                    return;
 
-            }
-
-
-            /*
-                Если это последняя фотография
-            */
-
-            if(
-                number >= photos.length
-            ){
-
-                continueAfterPhotos.classList.add(
-                    "visible"
-                );
-
-                return;
-
-            }
+                }
 
 
-            const nextNumber =
-                number + 1;
+                /*
+                   Если это последняя
+                   фотография - показываем
+                   кнопку продолжения.
+                */
 
-
-            const nextPhoto =
-                document.querySelector(
-                    `.photo-${nextNumber}`
-                );
-
-
-            /*
-                Показываем следующую
-            */
-
-            nextPhoto.classList.add(
-                "active-photo"
-            );
-
-
-            /*
-                Ждем немного,
-                чтобы браузер успел
-                отрисовать фотографию
-            */
-
-            setTimeout(function(){
-
-                createThread(
-                    photo,
-                    nextPhoto
-                );
-
-            },100);
-
-
-            /*
-                Музыка
-            */
-
-            playSong(
-                nextNumber
-            );
-
-
-            /*
-                Следующая фотография
-                становится активной
-            */
-
-            currentPhoto =
-                nextNumber;
-
-
-            /*
-                После последней фотографии
-                показываем кнопку
-            */
-
-            if(
-                currentPhoto ===
-                photos.length
-            ){
-
-                setTimeout(function(){
+                if (
+                    number >=
+                    photos.length
+                ) {
 
                     continueAfterPhotos.classList.add(
                         "visible"
                     );
 
-                },700);
+                    return;
+
+                }
+
+
+                /*
+                   Следующая фотография.
+                */
+
+                const nextNumber =
+                    number + 1;
+
+
+                const nextPhoto =
+                    document.querySelector(
+                        `.photo-${nextNumber}`
+                    );
+
+
+                if (!nextPhoto) {
+
+                    return;
+
+                }
+
+
+                /*
+                   Сначала показываем
+                   следующую фотографию.
+                */
+
+                nextPhoto.classList.add(
+                    "active-photo"
+                );
+
+
+                /*
+                   Немного ждем,
+                   чтобы браузер успел
+                   ее отрисовать.
+                */
+
+                setTimeout(
+                    function() {
+
+                        createThread(
+                            photo,
+                            nextPhoto
+                        );
+
+                    },
+                    100
+                );
+
+
+                /*
+                   Запускаем музыку.
+                */
+
+                playSong(
+                    nextNumber
+                );
+
+
+                /*
+                   Теперь следующая
+                   фотография становится
+                   доступной для нажатия.
+                */
+
+                currentPhoto =
+                    nextNumber;
+
+
+                /*
+                   Если появилась
+                   шестая фотография -
+                   показываем кнопку.
+                */
+
+                if (
+                    currentPhoto ===
+                    photos.length
+                ) {
+
+                    setTimeout(
+                        function() {
+
+                            continueAfterPhotos.classList.add(
+                                "visible"
+                            );
+
+                        },
+                        700
+                    );
+
+                }
 
             }
+        );
 
-        }
-    );
-
-});
+    }
+);
 
 
-/* ========================================
+/* ==================================================
    КНОПКА ПОСЛЕ ФОТО
-======================================== */
-
+================================================== */
 
 continueAfterPhotos.onclick =
-    function(){
+    function() {
 
         musicPlayer.pause();
 
         /*
-            Здесь позже сделаем
-            переход на 4 главу.
+           Здесь позже сделаем
+           четвертую главу.
         */
 
         alert(
