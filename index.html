@@ -5,7 +5,8 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Для Вики ❤️</title>
 
@@ -15,7 +16,10 @@
 
 <body>
 
-    <!-- ГЛАВА 1 -->
+
+    <!-- =========================================
+         ГЛАВА 1
+    ========================================== -->
 
     <div class="container" id="chapter1">
 
@@ -44,7 +48,9 @@
     </div>
 
 
-    <!-- ГЛАВА 2 -->
+    <!-- =========================================
+         ГЛАВА 2
+    ========================================== -->
 
     <div class="container hidden" id="chapter2">
 
@@ -56,8 +62,9 @@
 
             <br><br>
 
-            Мне хотелось сделать что-то чуть интереснее обычного сообщения,
-            поэтому я решил собрать для тебя этот небольшой сайт.
+            Мне хотелось сделать что-то чуть интереснее обычного скучного
+            сообщения, поэтому я решил собрать для тебя этот небольшой
+            творческий сайт.
 
             <br><br>
 
@@ -83,35 +90,179 @@
     </div>
 
 
-    <!-- ГЛАВА 3 -->
+    <!-- =========================================
+         ГЛАВА 3
+         ФОТОГРАФИИ + МУЗЫКА
+    ========================================== -->
 
-    <div class="container hidden" id="chapter3">
+    <div id="chapter3" class="photo-chapter hidden">
 
-        <h1>😈 Ну а теперь немного обо мне</h1>
+        <div class="photo-instruction">
 
-        <p class="description">
+            нажимай на фотографии...
 
-            Так, с тобой мы вроде разобрались.
+        </div>
 
-            <br><br>
 
-            Но будет нечестно рассказывать только о тебе.
-            Думаю, тебе тоже стоит узнать, на что ты вообще подписываешься.
+        <div class="photo-wall" id="photoWall">
 
-            <br><br>
 
-            Поэтому я подготовил небольшой список предупреждений.
+            <!-- НИТИ -->
 
-            <br><br>
+            <svg
+                class="threads"
+                id="threads"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none">
 
-            <b>Готова узнать, хочешь ли ты быть со мной, если я...</b>
+            </svg>
 
-        </p>
 
-        <div id="myFeaturesContainer"></div>
+            <!-- ФОТО 1 -->
 
-        <button id="nextFeature">
-            👀 Узнать
+            <div
+                class="polaroid photo-1 active-photo"
+                data-photo="1">
+
+                <div class="photo-image">
+
+                    <img
+                        src="images/photo1.jpg"
+                        alt="Фото 1">
+
+                </div>
+
+                <div class="photo-caption">
+                    ❤️
+                </div>
+
+            </div>
+
+
+            <!-- ФОТО 2 -->
+
+            <div
+                class="polaroid photo-2"
+                data-photo="2">
+
+                <div class="photo-image">
+
+                    <img
+                        src="images/photo2.jpg"
+                        alt="Фото 2">
+
+                </div>
+
+                <div class="photo-caption">
+                    🌸
+                </div>
+
+            </div>
+
+
+            <!-- ФОТО 3 -->
+
+            <div
+                class="polaroid photo-3"
+                data-photo="3">
+
+                <div class="photo-image">
+
+                    <img
+                        src="images/photo3.jpg"
+                        alt="Фото 3">
+
+                </div>
+
+                <div class="photo-caption">
+                    ✨
+                </div>
+
+            </div>
+
+
+            <!-- ФОТО 4 -->
+
+            <div
+                class="polaroid photo-4"
+                data-photo="4">
+
+                <div class="photo-image">
+
+                    <img
+                        src="images/photo4.jpg"
+                        alt="Фото 4">
+
+                </div>
+
+                <div class="photo-caption">
+                    💕
+                </div>
+
+            </div>
+
+
+            <!-- ФОТО 5 -->
+
+            <div
+                class="polaroid photo-5"
+                data-photo="5">
+
+                <div class="photo-image">
+
+                    <img
+                        src="images/photo5.jpg"
+                        alt="Фото 5">
+
+                </div>
+
+                <div class="photo-caption">
+                    🌷
+                </div>
+
+            </div>
+
+
+            <!-- ФОТО 6 -->
+
+            <div
+                class="polaroid photo-6"
+                data-photo="6">
+
+                <div class="photo-image">
+
+                    <img
+                        src="images/photo6.jpg"
+                        alt="Фото 6">
+
+                </div>
+
+                <div class="photo-caption">
+                    ❤️
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- АУДИО -->
+
+        <audio
+            id="musicPlayer"
+            preload="auto">
+        </audio>
+
+
+        <!-- КНОПКА ПОСЛЕ ВСЕХ ФОТО -->
+
+        <button
+            id="continueAfterPhotos"
+            class="photo-continue">
+
+            💚 Продолжить
+
         </button>
 
     </div>
