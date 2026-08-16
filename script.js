@@ -607,176 +607,101 @@ function playSong(number) {
 }
 
 
-/* ==================================================
-   НАЖАТИЕ НА ФОТОГРАФИЮ
-================================================== */
+/* ========================================
+   НАЖАТИЕ НА ФОТО
+======================================== */
 
-photos.forEach(
-    function(photo) {
+photos.forEach(function(photo){
 
-        photo.addEventListener(
-            "click",
-            function() {
+    photo.addEventListener("click", function(){
 
-
-                const number =
-                    Number(
-                        photo.dataset.photo
-                    );
+        const number = Number(photo.dataset.photo);
 
 
-                /*
-                   Нельзя нажать
-                   на еще не открытую
-                   фотографию.
-                */
+        /* ========================================
+           КАЖДОЕ НАЖАТИЕ ЗАПУСКАЕТ ПЕСНЮ
+           И НАЧИНАЕТ ЕЕ С НАЧАЛА
+        ======================================== */
 
-                if (
-                    number !==
-                    currentPhoto
-                ) {
-
-                    return;
-
-                }
+        playSong(number);
 
 
-                /*
-                   Если это последняя
-                   фотография - показываем
-                   кнопку продолжения.
-                */
+        /* ========================================
+           ЕСЛИ ЭТО ПОСЛЕДНЯЯ ФОТОГРАФИЯ
+        ======================================== */
 
-                if (
-                    number >=
-                    photos.length
-                ) {
+        if(number === photos.length){
 
-                    continueAfterPhotos.classList.add(
-                        "visible"
-                    );
+            continueAfterPhotos.classList.add("visible");
 
-                    return;
+            return;
 
-                }
+        }
 
 
-                /*
-                   Следующая фотография.
-                */
+        /* ========================================
+           ЕСЛИ СЛЕДУЮЩЕЕ ФОТО УЖЕ ПОКАЗАНО
+        ======================================== */
 
-                const nextNumber =
-                    number + 1;
+        const nextNumber = number + 1;
 
-
-                const nextPhoto =
-                    document.querySelector(
-                        `.photo-${nextNumber}`
-                    );
-
-
-                if (!nextPhoto) {
-
-                    return;
-
-                }
-
-
-                /*
-                   Сначала показываем
-                   следующую фотографию.
-                */
-
-                nextPhoto.classList.add(
-                    "active-photo"
-                );
-
-
-                /*
-                   Немного ждем,
-                   чтобы браузер успел
-                   ее отрисовать.
-                */
-
-                setTimeout(
-                    function() {
-
-                        createThread(
-                            photo,
-                            nextPhoto
-                        );
-
-                    },
-                    100
-                );
-
-
-                /*
-                   Запускаем музыку.
-                */
-
-                playSong(
-                    nextNumber
-                );
-
-
-                /*
-                   Теперь следующая
-                   фотография становится
-                   доступной для нажатия.
-                */
-
-                currentPhoto =
-                    nextNumber;
-
-
-                /*
-                   Если появилась
-                   шестая фотография -
-                   показываем кнопку.
-                */
-
-                if (
-                    currentPhoto ===
-                    photos.length
-                ) {
-
-                    setTimeout(
-                        function() {
-
-                            continueAfterPhotos.classList.add(
-                                "visible"
-                            );
-
-                        },
-                        700
-                    );
-
-                }
-
-            }
+        const nextPhoto = document.querySelector(
+            `.photo-${nextNumber}`
         );
 
-    }
-);
+
+        if(!nextPhoto){
+
+            return;
+
+        }
 
 
-/* ==================================================
+        /* ========================================
+           ПОКАЗЫВАЕМ СЛЕДУЮЩУЮ ФОТОГРАФИЮ
+        ======================================== */
+
+        nextPhoto.classList.add("active-photo");
+
+
+        /* ========================================
+           СОЗДАЕМ НИТЬ МЕЖДУ ФОТОГРАФИЯМИ
+        ======================================== */
+
+        setTimeout(function(){
+
+            createThread(
+                photo,
+                nextPhoto
+            );
+
+        }, 100);
+
+
+        /* ========================================
+           СЛЕДУЮЩЕЕ ФОТО СТАНОВИТСЯ ДОСТУПНЫМ
+        ======================================== */
+
+        currentPhoto = nextNumber;
+
+    });
+
+});
+
+
+/* ========================================
    КНОПКА ПОСЛЕ ФОТО
-================================================== */
+======================================== */
 
-continueAfterPhotos.onclick =
-    function() {
+continueAfterPhotos.onclick = function(){
 
-        musicPlayer.pause();
+    musicPlayer.pause();
 
-        /*
-           Здесь позже сделаем
-           четвертую главу.
-        */
+    /*
+        Здесь позже сделаем
+        переход на 4 главу.
+    */
 
-        alert(
-            "Продолжение следует ❤️"
-        );
+    alert("Продолжение следует ❤️");
 
-    };
+};
