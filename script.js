@@ -1,9 +1,4 @@
 /* ==================================================
-   ДАННЫЕ САЙТА
-================================================== */
-
-
-/* ==================================================
    КОМПЛИМЕНТЫ
 ================================================== */
 
@@ -59,20 +54,16 @@ const phrases = [
 
 /* ==================================================
    МУЗЫКА
+
+   Каждое фото имеет свой трек:
+
+   photo1 -> song1
+   photo2 -> song2
+   photo3 -> song3
+   photo4 -> song4
+   photo5 -> song5
+   photo6 -> song6
 ================================================== */
-
-/*
-   Здесь находятся песни.
-
-   song1.mp3 = музыка при открытии фото 2
-   song2.mp3 = музыка при открытии фото 3
-   song3.mp3 = музыка при открытии фото 4
-   song4.mp3 = музыка при открытии фото 5
-   song5.mp3 = музыка при открытии фото 6
-
-   song6.mp3 пока оставляем на случай,
-   если потом захочешь использовать ее.
-*/
 
 const songs = [
 
@@ -98,46 +89,38 @@ const songs = [
 const noButton =
     document.getElementById("noButton");
 
-
 const yesButton =
     document.getElementById("yesButton");
-
 
 const chapter1 =
     document.getElementById("chapter1");
 
-
 const chapter2 =
     document.getElementById("chapter2");
-
 
 const chapter3 =
     document.getElementById("chapter3");
 
+const chapter4 =
+    document.getElementById("chapter4");
 
 const complimentsContainer =
     document.getElementById("complimentsContainer");
 
-
 const nextCompliment =
     document.getElementById("nextCompliment");
-
 
 const photoWall =
     document.getElementById("photoWall");
 
-
 const threads =
     document.getElementById("threads");
-
 
 const musicPlayer =
     document.getElementById("musicPlayer");
 
-
 const continueAfterPhotos =
     document.getElementById("continueAfterPhotos");
-
 
 const photos =
     document.querySelectorAll(".polaroid");
@@ -199,18 +182,14 @@ function moveButton() {
         const rect =
             noButton.getBoundingClientRect();
 
-
         noButton.style.position =
             "fixed";
-
 
         noButton.style.left =
             rect.left + "px";
 
-
         noButton.style.top =
             rect.top + "px";
-
 
         activated = true;
 
@@ -285,16 +264,24 @@ noButton.addEventListener(
 
 yesButton.onclick = function() {
 
-    chapter1.classList.add("fade-out");
+    chapter1.classList.add(
+        "fade-out"
+    );
 
 
     setTimeout(function() {
 
-        chapter1.classList.add("hidden");
+        chapter1.classList.add(
+            "hidden"
+        );
 
-        chapter2.classList.remove("hidden");
+        chapter2.classList.remove(
+            "hidden"
+        );
 
-        chapter2.classList.add("fade-in");
+        chapter2.classList.add(
+            "fade-in"
+        );
 
     }, 800);
 
@@ -307,12 +294,6 @@ yesButton.onclick = function() {
 
 nextCompliment.onclick = function() {
 
-
-    /*
-       Если все 10 комплиментов
-       уже показаны - переходим
-       только по повторному нажатию.
-    */
 
     if (
         complimentIndex >=
@@ -348,11 +329,6 @@ nextCompliment.onclick = function() {
     complimentIndex++;
 
 
-    /*
-       После последнего комплимента
-       кнопка становится зеленой.
-    */
-
     if (
         complimentIndex ===
         compliments.length
@@ -360,7 +336,6 @@ nextCompliment.onclick = function() {
 
         nextCompliment.textContent =
             "💚 Продолжить";
-
 
         nextCompliment.classList.add(
             "continue-button"
@@ -408,14 +383,8 @@ function goToChapter3() {
 
 /* ==================================================
    ГЛАВА 3
+   НАЧАЛО
 ================================================== */
-
-
-/*
-   Начальное состояние.
-
-   Видна только первая фотография.
-*/
 
 function startPhotoChapter() {
 
@@ -568,6 +537,10 @@ function createThread(
 
 /* ==================================================
    МУЗЫКА
+
+   number = номер фотографии.
+
+   Каждый клик начинает песню заново.
 ================================================== */
 
 function playSong(number) {
@@ -592,8 +565,13 @@ function playSong(number) {
     musicPlayer.volume = 0.18;
 
 
-    musicPlayer.play()
-        .catch(
+    const playPromise =
+        musicPlayer.play();
+
+
+    if (playPromise !== undefined) {
+
+        playPromise.catch(
             function(error) {
 
                 console.log(
@@ -604,104 +582,272 @@ function playSong(number) {
             }
         );
 
+    }
+
 }
 
 
-/* ========================================
-   НАЖАТИЕ НА ФОТО
-======================================== */
+/* ==================================================
+   НАЖАТИЕ НА ФОТОГРАФИИ
+================================================== */
 
-photos.forEach(function(photo){
+photos.forEach(
+    function(photo) {
 
-    photo.addEventListener("click", function(){
+        photo.addEventListener(
+            "click",
+            function() {
 
-        const number = Number(photo.dataset.photo);
-
-
-        /* ========================================
-           КАЖДОЕ НАЖАТИЕ ЗАПУСКАЕТ ПЕСНЮ
-           И НАЧИНАЕТ ЕЕ С НАЧАЛА
-        ======================================== */
-
-        playSong(number);
+                const number =
+                    Number(
+                        photo.dataset.photo
+                    );
 
 
-        /* ========================================
-           ЕСЛИ ЭТО ПОСЛЕДНЯЯ ФОТОГРАФИЯ
-        ======================================== */
+                /* ----------------------------------
+                   КАЖДОЕ НАЖАТИЕ
+                   ЗАПУСКАЕТ ТРЕК ЗАНОВО
+                ---------------------------------- */
 
-        if(number === photos.length){
-
-            continueAfterPhotos.classList.add("visible");
-
-            return;
-
-        }
+                playSong(number);
 
 
-        /* ========================================
-           ЕСЛИ СЛЕДУЮЩЕЕ ФОТО УЖЕ ПОКАЗАНО
-        ======================================== */
+                /* ----------------------------------
+                   ПОСЛЕДНЕЕ ФОТО
+                ---------------------------------- */
 
-        const nextNumber = number + 1;
+                if (
+                    number ===
+                    photos.length
+                ) {
 
-        const nextPhoto = document.querySelector(
-            `.photo-${nextNumber}`
+                    continueAfterPhotos.classList.add(
+                        "visible"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ----------------------------------
+                   ЕСЛИ СЛЕДУЮЩЕЕ ФОТО
+                   УЖЕ СУЩЕСТВУЕТ
+                ---------------------------------- */
+
+                const nextNumber =
+                    number + 1;
+
+
+                const nextPhoto =
+                    document.querySelector(
+                        `.photo-${nextNumber}`
+                    );
+
+
+                if (!nextPhoto) {
+
+                    return;
+
+                }
+
+
+                /* ----------------------------------
+                   ПОКАЗЫВАЕМ СЛЕДУЮЩУЮ ФОТО
+                ---------------------------------- */
+
+                const wasAlreadyVisible =
+                    nextPhoto.classList.contains(
+                        "active-photo"
+                    );
+
+
+                nextPhoto.classList.add(
+                    "active-photo"
+                );
+
+
+                /* ----------------------------------
+                   НИТЬ СОЗДАЕМ ТОЛЬКО
+                   ПРИ ПЕРВОМ ОТКРЫТИИ
+                ---------------------------------- */
+
+                if (!wasAlreadyVisible) {
+
+                    setTimeout(
+                        function() {
+
+                            createThread(
+                                photo,
+                                nextPhoto
+                            );
+
+                        },
+                        100
+                    );
+
+                }
+
+
+                /* ----------------------------------
+                   СЛЕДУЮЩАЯ ФОТОГРАФИЯ
+                   СТАНОВИТСЯ ДОСТУПНОЙ
+                ---------------------------------- */
+
+                currentPhoto =
+                    nextNumber;
+
+            }
+        );
+
+    }
+);
+
+
+/* ==================================================
+   ГЛАВА 3 → ГЛАВА 4
+================================================== */
+
+continueAfterPhotos.onclick =
+    function() {
+
+        musicPlayer.pause();
+
+        goToChapter4();
+
+    };
+
+
+/* ==================================================
+   ПЕРЕХОД В ГЛАВУ 4
+================================================== */
+
+function goToChapter4() {
+
+    chapter3.classList.add(
+        "chapter-fade-out"
+    );
+
+
+    setTimeout(
+        function() {
+
+            chapter3.classList.add(
+                "hidden"
+            );
+
+
+            chapter4.classList.remove(
+                "hidden"
+            );
+
+
+            chapter4.classList.add(
+                "final-visible"
+            );
+
+
+            startLoveAnimation();
+
+        },
+        900
+    );
+
+}
+
+
+/* ==================================================
+   АНИМАЦИЯ "I LOVE YOU"
+================================================== */
+
+function startLoveAnimation() {
+
+    const loveTitle =
+        document.getElementById(
+            "loveTitle"
         );
 
 
-        if(!nextPhoto){
+    if (!loveTitle) {
 
-            return;
+        return;
+
+    }
+
+
+    const letters =
+        loveTitle.querySelectorAll(
+            "span"
+        );
+
+
+    letters.forEach(
+        function(letter, index) {
+
+            if (
+                letter.textContent.trim() === ""
+            ) {
+
+                return;
+
+            }
+
+
+            setTimeout(
+                function() {
+
+                    letter.classList.add(
+                        "love-letter-active"
+                    );
+
+                },
+                500 + index * 130
+            );
+
+        }
+    );
+
+}
+
+
+/* ==================================================
+   ПРЕДОТВРАЩАЕМ СЛУЧАЙНОЕ ПРОКРУЧИВАНИЕ
+   У ФОТОГЛАВЫ
+================================================== */
+
+window.addEventListener(
+    "resize",
+    function() {
+
+        if (
+            chapter3 &&
+            !chapter3.classList.contains(
+                "hidden"
+            )
+        ) {
+
+            threads.innerHTML = "";
+
+            const visiblePhotos =
+                document.querySelectorAll(
+                    ".polaroid.active-photo"
+                );
+
+
+            for (
+                let i = 0;
+                i < visiblePhotos.length - 1;
+                i++
+            ) {
+
+                createThread(
+                    visiblePhotos[i],
+                    visiblePhotos[i + 1]
+                );
+
+            }
 
         }
 
-
-        /* ========================================
-           ПОКАЗЫВАЕМ СЛЕДУЮЩУЮ ФОТОГРАФИЮ
-        ======================================== */
-
-        nextPhoto.classList.add("active-photo");
-
-
-        /* ========================================
-           СОЗДАЕМ НИТЬ МЕЖДУ ФОТОГРАФИЯМИ
-        ======================================== */
-
-        setTimeout(function(){
-
-            createThread(
-                photo,
-                nextPhoto
-            );
-
-        }, 100);
-
-
-        /* ========================================
-           СЛЕДУЮЩЕЕ ФОТО СТАНОВИТСЯ ДОСТУПНЫМ
-        ======================================== */
-
-        currentPhoto = nextNumber;
-
-    });
-
-});
-
-
-/* ========================================
-   КНОПКА ПОСЛЕ ФОТО
-======================================== */
-
-continueAfterPhotos.onclick = function(){
-
-    musicPlayer.pause();
-
-    /*
-        Здесь позже сделаем
-        переход на 4 главу.
-    */
-
-    alert("Продолжение следует ❤️");
-
-};
+    }
+);
