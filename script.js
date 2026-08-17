@@ -750,7 +750,7 @@ function goToChapter4() {
             startLoveAnimation();
 
         },
-        900
+        800
     );
 
 }
@@ -851,3 +851,158 @@ window.addEventListener(
 
     }
 );
+/* ==================================================
+   ГЛАВА 4
+   ПЕРЕКЛЮЧЕНИЕ ЧАСТЕЙ
+================================================== */
+
+const confessionPages =
+    document.querySelectorAll(
+        ".confession-page"
+    );
+
+
+const confessionButtons =
+    document.querySelectorAll(
+        ".confession-next"
+    );
+
+
+let confessionPageIndex = 0;
+
+
+/* ==================================================
+   ЗАПУСК ПРИЗНАНИЯ
+================================================== */
+
+function startConfession() {
+
+    confessionPageIndex = 0;
+
+
+    confessionPages.forEach(function(page) {
+
+        page.classList.remove(
+            "active-page"
+        );
+
+    });
+
+
+    if(confessionPages[0]) {
+
+        confessionPages[0].classList.add(
+            "active-page"
+        );
+
+    }
+
+
+    /*
+       Каждый раз заново запускаем
+       анимацию I'M LOVE YOU.
+    */
+
+    const loveText =
+        document.getElementById("loveText");
+
+
+    if(loveText) {
+
+        loveText.style.animation = "none";
+
+        void loveText.offsetWidth;
+
+        loveText.style.animation = "";
+
+    }
+
+}
+
+
+/* ==================================================
+   КНОПКИ "ПРОДОЛЖИТЬ"
+================================================== */
+
+confessionButtons.forEach(function(button) {
+
+    button.addEventListener(
+        "click",
+        function() {
+
+            if(
+                confessionPageIndex >=
+                confessionPages.length - 1
+            ) {
+
+                return;
+
+            }
+
+
+            const currentPage =
+                confessionPages[
+                    confessionPageIndex
+                ];
+
+
+            confessionPageIndex++;
+
+
+            const nextPage =
+                confessionPages[
+                    confessionPageIndex
+                ];
+
+
+            currentPage.classList.remove(
+                "active-page"
+            );
+
+
+            /*
+               Небольшая задержка нужна,
+               чтобы предыдущая страница
+               успела исчезнуть.
+            */
+
+            setTimeout(function() {
+
+                nextPage.classList.add(
+                    "active-page"
+                );
+
+
+                /*
+                   Если это страница
+                   с признанием,
+                   перезапускаем анимацию.
+                */
+
+                const loveText =
+                    document.getElementById(
+                        "loveText"
+                    );
+
+
+                if(
+                    loveText &&
+                    confessionPageIndex === 1
+                ) {
+
+                    loveText.style.animation =
+                        "none";
+
+                    void loveText.offsetWidth;
+
+                    loveText.style.animation =
+                        "";
+
+                }
+
+            }, 250);
+
+        }
+    );
+
+});
