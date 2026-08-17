@@ -54,15 +54,6 @@ const phrases = [
 
 /* ==================================================
    МУЗЫКА
-
-   Каждое фото имеет свой трек:
-
-   photo1 -> song1
-   photo2 -> song2
-   photo3 -> song3
-   photo4 -> song4
-   photo5 -> song5
-   photo6 -> song6
 ================================================== */
 
 const songs = [
@@ -537,10 +528,6 @@ function createThread(
 
 /* ==================================================
    МУЗЫКА
-
-   number = номер фотографии.
-
-   Каждый клик начинает песню заново.
 ================================================== */
 
 function playSong(number) {
@@ -604,17 +591,8 @@ photos.forEach(
                     );
 
 
-                /* ----------------------------------
-                   КАЖДОЕ НАЖАТИЕ
-                   ЗАПУСКАЕТ ТРЕК ЗАНОВО
-                ---------------------------------- */
-
                 playSong(number);
 
-
-                /* ----------------------------------
-                   ПОСЛЕДНЕЕ ФОТО
-                ---------------------------------- */
 
                 if (
                     number ===
@@ -629,11 +607,6 @@ photos.forEach(
 
                 }
 
-
-                /* ----------------------------------
-                   ЕСЛИ СЛЕДУЮЩЕЕ ФОТО
-                   УЖЕ СУЩЕСТВУЕТ
-                ---------------------------------- */
 
                 const nextNumber =
                     number + 1;
@@ -652,10 +625,6 @@ photos.forEach(
                 }
 
 
-                /* ----------------------------------
-                   ПОКАЗЫВАЕМ СЛЕДУЮЩУЮ ФОТО
-                ---------------------------------- */
-
                 const wasAlreadyVisible =
                     nextPhoto.classList.contains(
                         "active-photo"
@@ -666,11 +635,6 @@ photos.forEach(
                     "active-photo"
                 );
 
-
-                /* ----------------------------------
-                   НИТЬ СОЗДАЕМ ТОЛЬКО
-                   ПРИ ПЕРВОМ ОТКРЫТИИ
-                ---------------------------------- */
 
                 if (!wasAlreadyVisible) {
 
@@ -688,11 +652,6 @@ photos.forEach(
 
                 }
 
-
-                /* ----------------------------------
-                   СЛЕДУЮЩАЯ ФОТОГРАФИЯ
-                   СТАНОВИТСЯ ДОСТУПНОЙ
-                ---------------------------------- */
 
                 currentPhoto =
                     nextNumber;
@@ -747,6 +706,8 @@ function goToChapter4() {
             );
 
 
+            prepareFinalChapter();
+
             startLoveAnimation();
 
         },
@@ -754,6 +715,152 @@ function goToChapter4() {
     );
 
 }
+
+
+/* ==================================================
+   ПОДГОТОВКА ФИНАЛЬНОЙ ГЛАВЫ
+================================================== */
+
+function prepareFinalChapter() {
+
+    const finalParts =
+        document.querySelectorAll(
+            ".final-part"
+        );
+
+
+    finalParts.forEach(
+        function(part, index) {
+
+            if (index === 0) {
+
+                part.classList.remove(
+                    "final-part-hidden"
+                );
+
+                part.classList.add(
+                    "final-part-visible"
+                );
+
+            } else {
+
+                part.classList.remove(
+                    "final-part-visible"
+                );
+
+                part.classList.add(
+                    "final-part-hidden"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==================================================
+   ПЕРЕКЛЮЧЕНИЕ ЧАСТЕЙ ФИНАЛА
+================================================== */
+
+const finalNextButtons =
+    document.querySelectorAll(
+        ".final-next-button"
+    );
+
+
+finalNextButtons.forEach(
+    function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                const nextPartNumber =
+                    button.dataset.nextPart;
+
+
+                const currentPart =
+                    button.closest(
+                        ".final-part"
+                    );
+
+
+                const nextPart =
+                    document.querySelector(
+                        `.final-part[data-final-part="${nextPartNumber}"]`
+                    );
+
+
+                if (
+                    !currentPart ||
+                    !nextPart
+                ) {
+
+                    return;
+
+                }
+
+
+                currentPart.classList.remove(
+                    "final-part-visible"
+                );
+
+                currentPart.classList.add(
+                    "final-part-exit"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        currentPart.classList.add(
+                            "final-part-hidden"
+                        );
+
+                        currentPart.classList.remove(
+                            "final-part-exit"
+                        );
+
+
+                        nextPart.classList.remove(
+                            "final-part-hidden"
+                        );
+
+
+                        requestAnimationFrame(
+                            function() {
+
+                                nextPart.classList.add(
+                                    "final-part-visible"
+                                );
+
+                            }
+                        );
+
+
+                        setTimeout(
+                            function() {
+
+                                nextPart.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start"
+                                });
+
+                            },
+                            100
+                        );
+
+                    },
+                    500
+                );
+
+            }
+        );
+
+    }
+);
 
 
 /* ==================================================
@@ -777,21 +884,15 @@ function startLoveAnimation() {
 
     const letters =
         loveTitle.querySelectorAll(
-            "span"
+            "span:not(.love-space)"
         );
+
+
+    let visibleLetters = 0;
 
 
     letters.forEach(
         function(letter, index) {
-
-            if (
-                letter.textContent.trim() === ""
-            ) {
-
-                return;
-
-            }
-
 
             setTimeout(
                 function() {
@@ -800,8 +901,29 @@ function startLoveAnimation() {
                         "love-letter-active"
                     );
 
+                    visibleLetters++;
+
+
+                    if (
+                        visibleLetters ===
+                        letters.length
+                    ) {
+
+                        setTimeout(
+                            function() {
+
+                                startLoveFlicker(
+                                    letters
+                                );
+
+                            },
+                            500
+                        );
+
+                    }
+
                 },
-                500 + index * 130
+                700 + index * 220
             );
 
         }
@@ -811,8 +933,129 @@ function startLoveAnimation() {
 
 
 /* ==================================================
-   ПРЕДОТВРАЩАЕМ СЛУЧАЙНОЕ ПРОКРУЧИВАНИЕ
-   У ФОТОГЛАВЫ
+   ЭФФЕКТ СЛУЧАЙНЫХ ШРИФТОВ
+   ПОСЛЕ ПОЯВЛЕНИЯ I LOVE YOU
+================================================== */
+
+function startLoveFlicker(letters) {
+
+    const fonts = [
+
+        'Georgia, serif',
+
+        '"Times New Roman", serif',
+
+        '"Courier New", monospace',
+
+        'Arial, Helvetica, sans-serif',
+
+        'Verdana, sans-serif'
+
+    ];
+
+
+    let cycles = 0;
+
+    const maxCycles = 16;
+
+
+    const flicker =
+        setInterval(
+            function() {
+
+                if (
+                    cycles >=
+                    maxCycles
+                ) {
+
+                    clearInterval(
+                        flicker
+                    );
+
+                    return;
+
+                }
+
+
+                const randomIndex =
+                    Math.floor(
+                        Math.random() *
+                        letters.length
+                    );
+
+
+                const letter =
+                    letters[randomIndex];
+
+
+                const randomFont =
+                    fonts[
+                        Math.floor(
+                            Math.random() *
+                            fonts.length
+                        )
+                    ];
+
+
+                const randomItalic =
+                    Math.random() > .55;
+
+
+                const randomWeight =
+                    Math.random() > .65
+                        ? "600"
+                        : "400";
+
+
+                letter.style.fontFamily =
+                    randomFont;
+
+
+                letter.style.fontStyle =
+                    randomItalic
+                        ? "italic"
+                        : "normal";
+
+
+                letter.style.fontWeight =
+                    randomWeight;
+
+
+                letter.style.letterSpacing =
+                    Math.random() > .5
+                        ? "0.01em"
+                        : "-0.015em";
+
+
+                letter.classList.add(
+                    "love-flicker"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        letter.classList.remove(
+                            "love-flicker"
+                        );
+
+                    },
+                    170
+                );
+
+
+                cycles++;
+
+            },
+            260
+        );
+
+}
+
+
+/* ==================================================
+   ПРЕДОТВРАЩАЕМ СЛУЧАЙНОЕ
+   ПРОКРУЧИВАНИЕ У ФОТОГЛАВЫ
 ================================================== */
 
 window.addEventListener(
@@ -827,6 +1070,7 @@ window.addEventListener(
         ) {
 
             threads.innerHTML = "";
+
 
             const visiblePhotos =
                 document.querySelectorAll(

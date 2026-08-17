@@ -846,6 +846,10 @@ button {
 }
 
 
+/* ==================================================
+   ПОЯВЛЕНИЕ ФИНАЛА
+================================================== */
+
 .final-visible {
 
     animation:
@@ -920,7 +924,7 @@ button {
 
 
 /* ==================================================
-   КОНТЕНТ ГЛАВЫ 4
+   КОНТЕЙНЕР ФИНАЛА
 ================================================== */
 
 .final-content {
@@ -928,81 +932,81 @@ button {
     position: relative;
 
     width: min(
-        720px,
+        760px,
         calc(100% - 40px)
     );
 
-    margin: 0 auto;
+    margin: 70px auto 80px;
 
     padding:
-        100px 0 80px;
+        65px 55px 75px;
 
     z-index: 5;
 
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius:
+        22px;
+
+    background:
+        rgba(255,255,255,.018);
+
+    box-shadow:
+        0 0 60px
+        rgba(0,0,0,.18),
+
+        inset 0 0 40px
+        rgba(255,255,255,.012);
+
 }
 
 
-.final-section {
+/* ==================================================
+   ЧАСТИ ФИНАЛА
+================================================== */
 
-    max-width: 650px;
+.final-part {
 
-    margin:
-        0 auto;
+    width: 100%;
 
-    text-align: center;
+}
 
-    opacity: 0;
+
+.final-part-hidden {
+
+    display: none;
+
+}
+
+
+.final-part-visible {
+
+    display: block;
 
     animation:
-        finalTextAppear
-        1.2s ease forwards;
+        finalPartAppear 1.5s ease forwards;
 
 }
 
 
-.final-section p {
+.final-part-exit {
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 20px;
-
-    line-height: 1.9;
-
-    color:
-        rgba(255,255,255,.82);
-
-    margin-bottom: 30px;
+    animation:
+        finalPartExit .5s ease forwards;
 
 }
 
 
-.final-small-text {
-
-    font-family:
-        Georgia,
-        serif;
-
-    font-size: 32px;
-
-    color:
-        rgba(255,255,255,.94);
-
-    margin-bottom: 30px;
-
-}
-
-
-@keyframes finalTextAppear {
+@keyframes finalPartAppear {
 
     from {
 
         opacity: 0;
 
         transform:
-            translateY(20px);
+            translateY(30px);
 
     }
 
@@ -1018,25 +1022,83 @@ button {
 }
 
 
+@keyframes finalPartExit {
+
+    from {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+    to {
+
+        opacity: 0;
+
+        transform:
+            translateY(-18px);
+
+    }
+
+}
+
+
 /* ==================================================
-   СТРЕЛКИ
+   ТЕКСТ ФИНАЛА
 ================================================== */
 
-.final-divider {
+.final-section {
+
+    max-width: 650px;
+
+    margin:
+        0 auto 75px;
 
     text-align: center;
 
-    margin:
-        55px 0;
+}
+
+
+.final-section p {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 20px;
+
+    line-height: 1.95;
 
     color:
-        rgba(255,255,255,.28);
+        rgba(255,255,255,.82);
 
-    font-size: 25px;
+    margin-bottom: 38px;
+
+}
+
+
+.final-section p:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.final-small-text {
 
     font-family:
         Georgia,
         serif;
+
+    font-size: 32px;
+
+    color:
+        rgba(255,255,255,.94);
+
+    margin-bottom: 35px;
 
 }
 
@@ -1050,7 +1112,7 @@ button {
     text-align: center;
 
     padding:
-        45px 0 35px;
+        20px 0 70px;
 
 }
 
@@ -1063,7 +1125,7 @@ button {
 
     font-size: 16px;
 
-    letter-spacing: 3px;
+    letter-spacing: 4px;
 
     text-transform:
         lowercase;
@@ -1071,7 +1133,7 @@ button {
     color:
         rgba(255,255,255,.35);
 
-    margin-bottom: 25px;
+    margin-bottom: 28px;
 
 }
 
@@ -1084,9 +1146,9 @@ button {
 
     align-items: center;
 
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 
-    gap: 2px;
+    gap: 4px;
 
     font-size:
         clamp(
@@ -1115,6 +1177,8 @@ button {
 
     display: inline-block;
 
+    min-width: .5em;
+
     opacity: 0;
 
     transform:
@@ -1125,10 +1189,22 @@ button {
 }
 
 
+.love-title .love-space {
+
+    min-width: .28em;
+
+    opacity: 1;
+
+    transform: none;
+
+}
+
+
 .love-title .love-letter-active {
 
     animation:
-        loveLetter .75s
+        loveLetter
+        .95s
         cubic-bezier(.17,.67,.35,1.35)
         forwards;
 
@@ -1173,62 +1249,59 @@ button {
 }
 
 
-/*
-   Разные шрифты для эффекта
-   "буквы вырезаны из разных мест"
-*/
+/* ==================================================
+   ЭФФЕКТ СМЕНЫ ШРИФТА
+================================================== */
 
-.love-title span:nth-child(1),
-.love-title span:nth-child(5) {
+.love-title .love-flicker {
 
-    font-family:
-        Georgia,
-        serif;
+    animation:
+        loveFlicker .17s ease;
 
 }
 
 
-.love-title span:nth-child(3),
-.love-title span:nth-child(7) {
+@keyframes loveFlicker {
 
-    font-family:
-        "Times New Roman",
-        serif;
+    0% {
 
-}
+        opacity: .75;
 
+        transform:
+            translateY(-2px)
+            rotate(-2deg)
+            scale(1.02);
 
-.love-title span:nth-child(4),
-.love-title span:nth-child(8) {
+    }
 
-    font-family:
-        Impact,
-        sans-serif;
+    50% {
 
-}
+        opacity: 1;
 
+        transform:
+            translateY(1px)
+            rotate(1deg)
+            scale(1.05);
 
-.love-title span:nth-child(6),
-.love-title span:nth-child(9) {
+    }
 
-    font-family:
-        "Courier New",
-        monospace;
+    100% {
 
-}
+        opacity: 1;
 
+        transform:
+            translateY(0)
+            rotate(0)
+            scale(1);
 
-.love-title span:nth-child(10) {
-
-    font-family:
-        Georgia,
-        serif;
-
-    font-style:
-        italic;
+    }
 
 }
 
+
+/* ==================================================
+   ❤️ ПОД НАДПИСЬЮ
+================================================== */
 
 .love-subtitle {
 
@@ -1237,6 +1310,71 @@ button {
     font-size: 25px;
 
     opacity: .6;
+
+}
+
+
+/* ==================================================
+   КНОПКА МЕЖДУ ЧАСТЯМИ
+================================================== */
+
+.final-next-button {
+
+    display: block;
+
+    width: 190px;
+
+    min-height: 50px;
+
+    margin:
+        0 auto;
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    border-radius:
+        12px;
+
+    color:
+        rgba(255,255,255,.75);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        15px;
+
+    letter-spacing:
+        .5px;
+
+    transition:
+        background .3s ease,
+        border-color .3s ease,
+        transform .3s ease,
+        color .3s ease;
+
+}
+
+
+.final-next-button:hover {
+
+    background:
+        rgba(255,255,255,.12);
+
+    border-color:
+        rgba(255,150,190,.28);
+
+    color:
+        rgba(255,255,255,.95);
+
+    transform:
+        translateY(-2px);
 
 }
 
@@ -1255,15 +1393,29 @@ button {
 }
 
 
+/* ==================================================
+   САМАЯ ЛИЧНАЯ ЧАСТЬ
+================================================== */
+
 .heart-section {
 
     max-width: 650px;
 
-    margin: 0 auto;
+    margin:
+        65px auto 75px;
+
+    padding:
+        30px 20px;
 
     text-align: center;
 
-    padding: 30px 0;
+    border-top:
+        1px solid
+        rgba(255,255,255,.05);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.05);
 
 }
 
@@ -1294,14 +1446,16 @@ button {
 
 .final-last {
 
-    padding-top: 10px;
+    padding-top:
+        15px;
 
 }
 
 
 .final-question {
 
-    margin-top: 50px;
+    margin-top:
+        50px !important;
 
 }
 
@@ -1695,10 +1849,39 @@ and (
     .final-content {
 
         width:
-            calc(100% - 32px);
+            calc(100% - 20px);
+
+        margin:
+            25px auto 35px;
 
         padding:
-            70px 0 60px;
+            50px 20px 55px;
+
+        border-radius:
+            18px;
+
+        border:
+            1px solid
+            rgba(255,255,255,.09);
+
+    }
+
+
+    .final-part-visible {
+
+        animation:
+            finalPartAppear
+            1.9s
+            ease
+            forwards;
+
+    }
+
+
+    .final-section {
+
+        margin-bottom:
+            65px;
 
     }
 
@@ -1709,10 +1892,10 @@ and (
             17px;
 
         line-height:
-            1.75;
+            1.9;
 
         margin-bottom:
-            26px;
+            32px;
 
     }
 
@@ -1722,24 +1905,20 @@ and (
         font-size:
             27px;
 
-    }
-
-
-    .final-divider {
-
-        margin:
-            42px 0;
-
-        font-size:
-            21px;
+        margin-bottom:
+            30px;
 
     }
 
+
+    /* ------------------------------------------
+       I LOVE YOU
+    ------------------------------------------ */
 
     .love-section {
 
         padding:
-            25px 0;
+            20px 0 60px;
 
     }
 
@@ -1754,7 +1933,23 @@ and (
             );
 
         gap:
-            0;
+            2px;
+
+    }
+
+
+    .love-title span {
+
+        min-width:
+            .48em;
+
+    }
+
+
+    .love-title .love-space {
+
+        min-width:
+            .23em;
 
     }
 
@@ -1765,7 +1960,10 @@ and (
             13px;
 
         letter-spacing:
-            2px;
+            3px;
+
+        margin-bottom:
+            25px;
 
     }
 
@@ -1774,6 +1972,46 @@ and (
 
         font-size:
             20px;
+
+        margin-top:
+            30px;
+
+    }
+
+
+    .final-next-button {
+
+        width:
+            180px;
+
+        min-height:
+            50px;
+
+        font-size:
+            15px;
+
+    }
+
+
+    /* ------------------------------------------
+       ТЕКСТ ПОСЛЕ ПРИЗНАНИЯ
+    ------------------------------------------ */
+
+    .small-joke {
+
+        font-size:
+            15px !important;
+
+    }
+
+
+    .heart-section {
+
+        margin:
+            55px auto 65px;
+
+        padding:
+            28px 10px;
 
     }
 
@@ -1784,7 +2022,7 @@ and (
             18px;
 
         line-height:
-            1.7;
+            1.75;
 
     }
 
